@@ -4,7 +4,7 @@ Description: ntier flask server AWS Lambda function.
 
 Resources:
   
-  VtwoNodeServerServerless:
+  FlaskServerServerless:
     Type: "AWS::Serverless::Function"
     Properties:
       Handler: handler.py
@@ -12,14 +12,3 @@ Resources:
       Description: ntier flask server AWS Lambda function.
       MemorySize: 128
       Timeout: 3
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: "Cities"
-      Events:
-        NodeServerApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref VtwoNodeServerApi
-            Path: /node
-            Method: POST
-

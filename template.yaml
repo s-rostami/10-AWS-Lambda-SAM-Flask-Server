@@ -1,25 +1,15 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: "AWS::Serverless-2016-10-31"
-Description: ntier node server AWS Lambda function.
+Description: ntier flask server AWS Lambda function.
 
 Resources:
-  VtwoNodeServerApi:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: Prod
-      Cors: "'*'"
-      Auth:
-        DefaultAuthorizer: MyCognitoAuthorizer
-        Authorizers:
-          MyCognitoAuthorizer:
-            UserPoolArn: !GetAtt VtwoMyCognitoUserPool.Arn
-
+  
   VtwoNodeServerServerless:
     Type: "AWS::Serverless::Function"
     Properties:
-      Handler: index.handler
-      Runtime: nodejs12.x
-      Description: ntier node server AWS Lambda function.
+      Handler: handler.py
+      Runtime: python
+      Description: ntier flask server AWS Lambda function.
       MemorySize: 128
       Timeout: 3
       Policies:
@@ -33,36 +23,3 @@ Resources:
             Path: /node
             Method: POST
 
-  VtwoMyCognitoUserPool:
-    Type: AWS::Cognito::UserPool
-    Properties:
-      UserPoolName: TestingUsers
-      Policies:
-        PasswordPolicy:
-          MinimumLength: 6
-      Schema:
-        - Name: "sub"
-          AttributeDataType: "String"
-          DeveloperOnlyAttribute: false
-          Mutable: false
-          Required: true
-          StringAttributeConstraints:
-            MinLength: "1"
-            MaxLength: "2048"
-
-  VtwoMyCognitoUserPoolClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      UserPoolId: !Ref VtwoMyCognitoUserPool
-      ClientName: CognitoUserPoolClientName
-      ExplicitAuthFlows:
-        - "ALLOW_ADMIN_USER_PASSWORD_AUTH"
-        - "ALLOW_REFRESH_TOKEN_AUTH"
-        - "ALLOW_USER_PASSWORD_AUTH"
-      PreventUserExistenceErrors: "ENABLED"
-
-  CognitoUserPoolUser2:
-    Type: "AWS::Cognito::UserPoolUser"
-    Properties:
-      Username: "srostami"
-      UserPoolId: !Ref VtwoMyCognitoUserPool

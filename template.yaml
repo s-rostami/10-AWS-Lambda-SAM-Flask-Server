@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: ntier flask server AWS Lambda function.
+
+Resources:
+  ServerLess01:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: handler.lambda_handler
+      Runtime: python3.8
+      Description: ntier flask server AWS Lambda function.
+      MemorySize: 128
+      Timeout: 3
+      Role: arn:aws:iam::773910315572:role/service-role/python-server-role-yxu86sri
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-083ed0874697e00ce
+        SubnetIds:
+          - subnet-0ebcb0bed31d09fe6
+          - subnet-0c433525d558265df
+
+Outputs:
+  MyFunctionName:
+    Description: My Function N
+    Value:
+      Fn::GetAtt: ServerLess01.Arn
+    Export:
+      Name: FlaskServerLambdaName

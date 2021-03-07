@@ -16,4 +16,4 @@ phases:
   post_build:
     commands:
       - echo "deploy the serverless app"
-      - aws cloudformation deploy --template-file template-generated.yaml --stack-name lambda-sam-flask-server --capabilities CAPABILITY_IAM
+      - aws cloudformation deploy --template-file template-generated.yaml --stack-name lambda-sam-cicd-flask-server --capabilities CAPABILITY_IAM

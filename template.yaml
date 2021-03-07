@@ -3,7 +3,7 @@ Transform: "AWS::Serverless-2016-10-31"
 Description: ntier flask server AWS Lambda function.
 
 Resources:
-  ServerLess01:
+  ServerLess10:
     Type: "AWS::Serverless::Function"
     Properties:
       Handler: handler.lambda_handler
@@ -23,6 +23,6 @@ Outputs:
   MyFunctionName:
     Description: My Function N
     Value:
-      Fn::GetAtt: ServerLess01.Arn
+      Fn::GetAtt: ServerLess10.Arn
     Export:
       Name: FlaskServerLambdaName
